@@ -5,7 +5,7 @@ void main() {
   for (int i = 0; i <= bil; i++) {
     tambah++;
     if (bil % tambah == 0) {
-      print('${tambah}' + ' ');
+      print('${tambah}');
     }
   }
 }

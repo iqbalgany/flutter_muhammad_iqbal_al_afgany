@@ -1,36 +1,24 @@
+import 'dart:io';
+
 void main() {
   // Tugas Perulangan No 1
-  int i, j, k, l, bintang;
-  String cek;
-  bool ulang = true;
+  int i, j, k, l;
 
-  while (ulang) {
-    print("Bintangnya mau berapa boss? ");
-    bintang = 8;
+  stdout.write('Masukkan tinggi piramida : ');
+  int tinggiSegitiga = int.parse(stdin.readLineSync().toString());
 
-    i = 1;
-    while (i <= bintang) {
-      j = bintang - 1;
-      while (j >= i) {
-        print("  ");
-        j--;
-      }
-
-      k = 1;
-      while (k <= i) {
-        print("* " * j);
-        k++;
-      }
-
-      l = 1;
-      while (l <= i - 1) {
-        print("* ");
-        l++;
-      }
-
-      i++;
-      // print('\n');
+  for (i = 1; i <= tinggiSegitiga; i++) {
+    for (j = tinggiSegitiga - 1; j >= i; j--) {
+      stdout.write(' ');
     }
-    break;
+
+    for (k = 1; k <= i; k++) {
+      stdout.write(' *');
+    }
+
+    for (l = 1; i <= i - 1; l++) {
+      stdout.write('* ');
+    }
+    stdout.write('\n');
   }
 }
