@@ -1,10 +1,13 @@
 import 'dart:io';
 
 void main() {
+  String karakter;
+  int nilai;
+
   stdout.write('Masukkan sebuah karakter : ');
-  String karakter = stdin.readLineSync().toString();
+  karakter = stdin.readLineSync().toString();
   stdout.write('Masukkan nilai : ');
-  int nilai = int.parse(stdin.readLineSync().toString());
+  nilai = int.parse(stdin.readLineSync().toString());
 
   for (int a = 0; a <= (nilai - 1); a++) {
     for (int b = 1; b <= a; b++) {
