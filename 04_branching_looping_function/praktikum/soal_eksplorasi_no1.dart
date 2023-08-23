@@ -1,14 +1,20 @@
 import 'dart:io';
 
 void main() {
-  int bilangan;
+  int bilangan, cek = 0;
 
   stdout.write('Masukkan bilangan : ');
   bilangan = int.parse(stdin.readLineSync().toString());
 
-  if (bilangan % 2 == 1 || bilangan == 2) {
-    stdout.write('Bilangan prima');
+  for (int i = 2; i <= bilangan; i++) {
+    if (bilangan % i == 0) {
+      cek++;
+    }
+  }
+
+  if (cek == 1) {
+    stdout.write("${bilangan} adalah bilangan prima");
   } else {
-    stdout.write('Bukan bilangan prima');
+    stdout.write('${bilangan} bukan bilangan prima');
   }
 }
