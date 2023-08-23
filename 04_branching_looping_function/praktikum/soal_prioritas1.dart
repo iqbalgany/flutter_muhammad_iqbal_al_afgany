@@ -1,7 +1,12 @@
+import 'dart:io';
+
 void main() {
   // Tugas Percabangan
   print('Tugas Percabangan');
-  int nilai = 99;
+
+  int nilai;
+  stdout.write('Masukkan Nilai : ');
+  nilai = int.parse(stdin.readLineSync().toString());
 
   if (nilai > 70) {
     print('Nilai A\n');

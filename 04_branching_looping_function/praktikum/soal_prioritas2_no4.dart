@@ -1,5 +1,5 @@
 void main() {
-  luasLingkaran(4);
+  luasLingkaran(6);
 }
 
 void luasLingkaran(int r) {

@@ -10,7 +10,7 @@ void main() {
       stdout.write(' ${tambah}');
     }
   }
-  stdout.write('\n');
+  stdout.write('\n\n');
 
   int bil2 = 40;
   int tambah2 = 0;
@@ -21,7 +21,7 @@ void main() {
       stdout.write(' ${tambah2}');
     }
   }
-  stdout.write('\n');
+  stdout.write('\n\n');
 
   int bil3 = 50;
   int tambah3 = 0;
