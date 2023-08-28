@@ -1,11 +1,11 @@
 import 'dart:io';
 
 void main() {
-  List<int> nilai = [7, 5, 3, 5, 2, 1];
+  final List<int> nilai = [7, 5, 3, 5, 2, 1];
   double total = 0;
   int jumlahNilai = 0, banyakNilai;
 
-  for (var i = 0; i < nilai.length; i++) {
+  for (int i = 0; i < nilai.length; i++) {
     if (i == nilai.length - 1) {
       print('${nilai[i]}');
     } else {

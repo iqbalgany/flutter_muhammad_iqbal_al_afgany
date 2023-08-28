@@ -1,11 +1,11 @@
 void main() {
-  List<List<String>> dataKendaraan = [
+  final List<List<String>> dataKendaraan = [
     ['Mercedes', 'AMG-63'],
     ['BMW', 'X3'],
     ['VW', 'Tiguan'],
   ];
 
-  Map<String, String> dataMap = {};
+  final Map<String, String> dataMap = {};
 
   for (var data in dataKendaraan) {
     String merk = data[0];

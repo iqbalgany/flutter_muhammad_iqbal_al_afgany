@@ -3,7 +3,7 @@ void main() async {
 }
 
 Future<List> perkalian(List data, int pengali) async {
-  List total = data;
+  final List total = data;
   for (int i = 0; i < data.length; i++) {
     total[i] = data[i] * pengali;
   }

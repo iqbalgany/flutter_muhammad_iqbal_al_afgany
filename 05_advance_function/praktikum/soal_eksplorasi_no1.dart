@@ -18,6 +18,9 @@ void main() {
     'amuse',
   };
 
-  print('Data 1 : ${data1}');
-  print('Data 2 : ${data2}');
+  List listData1 = data1.toList();
+  List listData2 = data2.toList();
+
+  print('Data 1 : ${listData1}');
+  print('Data 2 : ${listData2}');
 }
