@@ -9,14 +9,14 @@ class Ios extends StatelessWidget {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         backgroundColor: Colors.grey[800],
-        middle: Text(
+        middle: const Text(
           'CupertinoApp',
           style: TextStyle(
             color: Colors.white,
           ),
         ),
       ),
-      child: Center(
+      child: const Center(
         child: Text(
           'This is CupertinoApp',
           style: TextStyle(

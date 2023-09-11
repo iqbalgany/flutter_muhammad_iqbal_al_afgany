@@ -8,20 +8,20 @@ class MyFlutterApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(
+        backgroundColor: const Color(
           0xff6200ee,
         ),
         actions: [
           Container(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               right: 20,
             ),
-            child: Icon(
+            child: const Icon(
               Icons.search,
             ),
           ),
         ],
-        title: Center(
+        title: const Center(
           child: Text(
             'My Flutter App',
           ),
@@ -29,7 +29,7 @@ class MyFlutterApp extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Colors.white,
           ),
           height: MediaQuery.of(context).size.height,
@@ -97,19 +97,19 @@ class MyFlutterApp extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Color(
+        backgroundColor: const Color(
           0xff03dac5,
         ),
         onPressed: () {},
-        child: Icon(
+        child: const Icon(
           Icons.add,
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Color(
+        backgroundColor: const Color(
           0xff6200ee,
         ),
-        items: <BottomNavigationBarItem>[
+        items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
               Icons.favorite,

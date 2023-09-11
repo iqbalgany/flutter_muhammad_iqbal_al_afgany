@@ -13,11 +13,11 @@ class _SettingPageState extends State<SettingPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'SETTING PAGE',
         ),
       ),
-      body: Center(
+      body: const Center(
         child: Text(
           'Setting Page',
         ),

@@ -25,7 +25,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
         onTap: (value) => setState(() {
           currentPageIndex = value;
         }),
-        items: <BottomNavigationBarItem>[
+        items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
               Icons.home,

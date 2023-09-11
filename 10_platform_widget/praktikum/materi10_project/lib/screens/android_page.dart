@@ -12,7 +12,7 @@ class _AndroidState extends State<Android> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
+        title: const Row(
           children: [
             Text(
               'MaterialApp',
@@ -22,7 +22,7 @@ class _AndroidState extends State<Android> {
       ),
       drawer: Drawer(
         child: ListView(
-          children: [
+          children: const [
             ListTile(
               title: Text(
                 'Home',
@@ -36,7 +36,7 @@ class _AndroidState extends State<Android> {
           ],
         ),
       ),
-      body: Center(
+      body: const Center(
         child: Text(
           'This is MaterialApp',
         ),

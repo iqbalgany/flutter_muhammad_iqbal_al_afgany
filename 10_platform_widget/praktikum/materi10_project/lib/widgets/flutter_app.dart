@@ -12,7 +12,7 @@ class FlutterApp extends StatelessWidget {
     return ListTile(
       title: Text(
         title,
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.black,
         ),
       ),
