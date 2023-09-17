@@ -17,6 +17,9 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Contact> contacts = List.empty(growable: true);
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
+  TextEditingController dateController = TextEditingController();
+  TextEditingController colorController = TextEditingController();
+  TextEditingController fileController = TextEditingController();
 
   int selectedIndex = -1;
 
@@ -60,9 +63,9 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     if (value.length < 7) {
-      return 'Panjang nomer harus lebih dari 7.';
+      return 'Digit nomer harus lebih dari 7.';
     } else if (value.length > 15) {
-      return 'Panjang nomer harus kurang dari 15';
+      return 'Digit nomer harus kurang dari 15';
     } else if (!value.startsWith('0')) {
       return 'Nomor telepon harus dimulai dengan angka 0.';
     }
@@ -73,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
   DateTime dueDate = DateTime.now();
   final currentDate = DateTime.now();
 
-  Color currentColor = Colors.purpleAccent;
+  Color currentColor = Colors.red;
 
   void pickFile() async {
     final result = await FilePicker.platform.pickFiles();
@@ -190,14 +193,100 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
 
-                        /// Select Date
-                        buildDatePicker(context),
+                        /// Date
+                        Container(
+                          color: Colors.purple[50],
+                          margin: const EdgeInsets.only(bottom: 10),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: TextFormField(
+                              controller: dateController,
+                              onTap: () async {
+                                final selectDate = await showDatePicker(
+                                  context: context,
+                                  initialDate: currentDate,
+                                  firstDate: DateTime(2000),
+                                  lastDate: DateTime(currentDate.year + 5),
+                                );
+                                if (selectDate != null) {
+                                  dateController.text =
+                                      DateFormat('EEEE, dd MMMM yyyy')
+                                          .format(dueDate);
+                                }
+                              },
+                              decoration: const InputDecoration(
+                                labelText: 'Date of Birth',
+                                suffixIcon: Icon(Icons.date_range),
+                              ),
+                            ),
+                          ),
+                        ),
 
-                        /// Select Color
-                        buildColorPicker(context),
+                        /// Color
+                        Container(
+                          color: Colors.purple[50],
+                          padding: const EdgeInsets.all(10),
+                          margin: const EdgeInsets.only(bottom: 10),
+                          child: TextFormField(
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: const Text('Pick Your Color'),
+                                    content: SingleChildScrollView(
+                                      child: ColorPicker(
+                                        pickerColor: currentColor,
+                                        onColorChanged: (color) {
+                                          setState(
+                                            () {
+                                              currentColor = color;
+                                            },
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text('Save'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                            decoration: InputDecoration(
+                              labelText: 'Your Favorite Color',
+                              suffixIcon: Container(
+                                height: 20,
+                                width: 20,
+                                color: currentColor,
+                              ),
+                            ),
+                          ),
+                        ),
 
-                        /// Select File & Open File
-                        buildFilePicker(context),
+                        /// File
+                        Container(
+                          margin: const EdgeInsets.only(bottom: 10),
+                          padding: const EdgeInsets.all(10),
+                          color: Colors.purple[50],
+                          child: TextFormField(
+                            controller: colorController,
+                            decoration: const InputDecoration(
+                              labelText: 'File',
+                              suffixIcon: Icon(
+                                Icons.file_copy,
+                              ),
+                            ),
+                            onTap: () {
+                              pickFile();
+                            },
+                          ),
+                        ),
 
                         /// Submit Button
                         Container(
@@ -216,15 +305,24 @@ class _MyHomePageState extends State<MyHomePage> {
                                 String name = nameController.text.trim();
                                 String phoneNumber =
                                     phoneNumberController.text.trim();
+                                String date = dateController.text.trim();
+                                String color = colorController.text.trim();
+                                String file = fileController.text.trim();
                                 if (selectedIndex == -1) {
                                   setState(
                                     () {
                                       nameController.text = '';
                                       phoneNumberController.text = '';
+                                      dateController.text = '';
+                                      colorController.text = '';
+                                      fileController.text = '';
                                       contacts.add(
                                         Contact(
                                           name: name,
                                           phoneNumber: phoneNumber,
+                                          date: date,
+                                          color: color,
+                                          file: file,
                                         ),
                                       );
                                     },
@@ -232,10 +330,18 @@ class _MyHomePageState extends State<MyHomePage> {
                                 } else {
                                   setState(() {
                                     contacts[selectedIndex] = Contact(
-                                        name: name, phoneNumber: phoneNumber);
+                                      name: name,
+                                      phoneNumber: phoneNumber,
+                                      date: date,
+                                      color: color,
+                                      file: file,
+                                    );
                                   });
                                   nameController.clear();
                                   phoneNumberController.clear();
+                                  dateController.clear();
+                                  colorController.clear();
+                                  fileController.clear();
                                   selectedIndex = -1;
                                 }
                               }
@@ -297,6 +403,17 @@ class _MyHomePageState extends State<MyHomePage> {
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             Text(contacts[index].phoneNumber),
+            Text(contacts[index].date),
+            Row(
+              children: [
+                const Text('Color = '),
+                Container(
+                  height: 20,
+                  width: 20,
+                  color: currentColor,
+                ),
+              ],
+            ),
           ],
         ),
         trailing: SizedBox(
@@ -304,14 +421,20 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Row(
             children: [
               IconButton(
-                  onPressed: () {
-                    nameController.text = contacts[index].name;
-                    phoneNumberController.text = contacts[index].phoneNumber;
-                    setState(() {
+                onPressed: () {
+                  nameController.text = contacts[index].name;
+                  phoneNumberController.text = contacts[index].phoneNumber;
+                  dateController.text = contacts[index].date;
+                  colorController.text = contacts[index].color;
+                  fileController.text = contacts[index].file;
+                  setState(
+                    () {
                       selectedIndex = index;
-                    });
-                  },
-                  icon: const Icon(Icons.edit)),
+                    },
+                  );
+                },
+                icon: const Icon(Icons.edit),
+              ),
               IconButton(
                   onPressed: () {
                     setState(
@@ -324,48 +447,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget buildDatePicker(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text('Date'),
-              ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(
-                    Colors.purple[50],
-                  ),
-                ),
-                onPressed: () async {
-                  final selectDate = await showDatePicker(
-                    context: context,
-                    initialDate: currentDate,
-                    firstDate: DateTime(1990),
-                    lastDate: DateTime(currentDate.year + 5),
-                  );
-                  setState(() {
-                    if (selectDate != null) {
-                      dueDate = selectDate;
-                    }
-                  });
-                },
-                child: const Text('Select'),
-              ),
-            ],
-          ),
-          Text(
-            DateFormat('EEEE, dd MMMM yyyy').format(dueDate),
-            style: const TextStyle(fontWeight: FontWeight.w500),
-          ),
-        ],
       ),
     );
   }
@@ -400,9 +481,11 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: ColorPicker(
                           pickerColor: currentColor,
                           onColorChanged: (color) {
-                            setState(() {
-                              currentColor = color;
-                            });
+                            setState(
+                              () {
+                                currentColor = color;
+                              },
+                            );
                           },
                         ),
                       ),
