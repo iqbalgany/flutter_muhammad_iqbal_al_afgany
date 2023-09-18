@@ -10,10 +10,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<Contact> contacts = List.empty(growable: true);
-  TextEditingController nameController = TextEditingController();
-  TextEditingController phoneNumberController = TextEditingController();
-
+  final List<Contact> contacts = [];
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController phoneNumberController = TextEditingController();
   int selectedIndex = -1;
 
   String? validateName(String? value) {
@@ -183,8 +182,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             onPressed: () {
                               if (formKey.currentState!.validate()) {
-                                String name = nameController.text.trim();
-                                String phoneNumber =
+                                final String name = nameController.text.trim();
+                                final String phoneNumber =
                                     phoneNumberController.text.trim();
                                 if (selectedIndex == -1) {
                                   setState(
@@ -200,10 +199,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                     },
                                   );
                                 } else {
-                                  setState(() {
-                                    contacts[selectedIndex] = Contact(
-                                        name: name, phoneNumber: phoneNumber);
-                                  });
+                                  setState(
+                                    () {
+                                      contacts[selectedIndex] = Contact(
+                                          name: name, phoneNumber: phoneNumber);
+                                    },
+                                  );
                                   nameController.clear();
                                   phoneNumberController.clear();
                                   selectedIndex = -1;

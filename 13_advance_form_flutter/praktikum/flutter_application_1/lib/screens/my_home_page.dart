@@ -86,17 +86,20 @@ class _MyHomePageState extends State<MyHomePage> {
   void pickFile() async {
     final FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ['jpg', 'png', 'pdf'],
+      allowedExtensions: [
+        'jpg',
+        'png',
+      ],
     );
     if (result == null && result!.files.single.path != null) return;
 
-    // PlatformFile file = result.files.first;
-
     File _file = File(result.files.single.path!);
-    setState(() {
-      platformFileUrl.add(result.files.first);
-      _fileUrl.add(_file);
-    });
+    setState(
+      () {
+        platformFileUrl.add(result.files.first);
+        _fileUrl.add(_file);
+      },
+    );
   }
 
   void openFile(PlatformFile file) {
@@ -407,7 +410,9 @@ class _MyHomePageState extends State<MyHomePage> {
       color: Colors.white,
       child: ListTile(
         leading: CircleAvatar(
-          child: Text(contacts[index].name[0].toUpperCase()),
+          child: Text(
+            contacts[index].name[0].toUpperCase(),
+          ),
         ),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -462,95 +467,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget buildColorPicker(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10, left: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Color'),
-          const SizedBox(height: 10),
-          Center(
-            child: Container(
-              height: 50,
-              width: 50,
-              color: currentColor,
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Center(
-            child: ElevatedButton(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: const Text('Pick Your Color'),
-                      content: SingleChildScrollView(
-                        child: ColorPicker(
-                          pickerColor: currentColor,
-                          onColorChanged: (color) {
-                            setState(
-                              () {
-                                currentColor = color;
-                              },
-                            );
-                          },
-                        ),
-                      ),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text('Save'),
-                        ),
-                      ],
-                    );
-                  },
-                );
-              },
-              style: ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll(
-                  Colors.purple[50],
-                ),
-              ),
-              child: const Text('Pick Color'),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget buildFilePicker(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10, left: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Pick Files'),
-          const SizedBox(height: 10),
-          Center(
-            child: ElevatedButton(
-              onPressed: () {
-                pickFile();
-              },
-              style: ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll(
-                  Colors.purple[50],
-                ),
-              ),
-              child: const Text('Pick & Open File'),
-            ),
-          )
-        ],
       ),
     );
   }
