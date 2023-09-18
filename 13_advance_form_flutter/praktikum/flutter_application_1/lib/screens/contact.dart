@@ -2,7 +2,7 @@ class Contact {
   String name;
   String phoneNumber;
   String date;
-  String color;
+  int color;
   String file;
   Contact({
     required this.name,

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -78,12 +80,23 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Color currentColor = Colors.red;
 
-  void pickFile() async {
-    final result = await FilePicker.platform.pickFiles();
-    if (result == null) return;
+  List<PlatformFile> platformFileUrl = [];
+  List<File> _fileUrl = [];
 
-    final file = result.files.first;
-    openFile(file);
+  void pickFile() async {
+    final FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['jpg', 'png', 'pdf'],
+    );
+    if (result == null && result!.files.single.path != null) return;
+
+    // PlatformFile file = result.files.first;
+
+    File _file = File(result.files.single.path!);
+    setState(() {
+      platformFileUrl.add(result.files.first);
+      _fileUrl.add(_file);
+    });
   }
 
   void openFile(PlatformFile file) {
@@ -306,8 +319,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                 String phoneNumber =
                                     phoneNumberController.text.trim();
                                 String date = dateController.text.trim();
-                                String color = colorController.text.trim();
-                                String file = fileController.text.trim();
+                                int color = currentColor.value;
+                                String file = _fileUrl.first.toString();
+                                print('Warna : $color');
                                 if (selectedIndex == -1) {
                                   setState(
                                     () {
@@ -410,10 +424,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 Container(
                   height: 20,
                   width: 20,
-                  color: currentColor,
+                  color: Color(contacts[index].color),
                 ),
               ],
             ),
+            Text(contacts[index].file),
           ],
         ),
         trailing: SizedBox(
@@ -425,7 +440,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   nameController.text = contacts[index].name;
                   phoneNumberController.text = contacts[index].phoneNumber;
                   dateController.text = contacts[index].date;
-                  colorController.text = contacts[index].color;
+                  colorController.text = contacts[index].color.toString();
                   fileController.text = contacts[index].file;
                   setState(
                     () {
