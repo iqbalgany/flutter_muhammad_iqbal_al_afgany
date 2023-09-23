@@ -1,5 +1,3 @@
-import 'dart:io';
-
 void main() {
   int bil = 24;
   int tambah = 0;
