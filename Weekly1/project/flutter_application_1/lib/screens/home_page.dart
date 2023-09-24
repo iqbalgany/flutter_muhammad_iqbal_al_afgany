@@ -137,11 +137,19 @@ class _HomePageState extends State<HomePage> {
                               onPressed: () => showDialog(
                                 context: context,
                                 builder: (context) => AlertDialog(
-                                  title: const Text('Alert Dialog'),
-                                  content: const Text('Warning!!!'),
+                                  title: const Text('Alert'),
+                                  titleTextStyle: const TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: 'Poppins'),
+                                  content: const Text(
+                                      'Are you sure about what you have filled in?'),
                                   actions: [
                                     ElevatedButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
                                       child: const Text('YES'),
                                     ),
                                     ElevatedButton(
@@ -151,6 +159,7 @@ class _HomePageState extends State<HomePage> {
                                       child: const Text('NO'),
                                     ),
                                   ],
+                                  actionsAlignment: MainAxisAlignment.center,
                                 ),
                               ),
                               child: const Text(
