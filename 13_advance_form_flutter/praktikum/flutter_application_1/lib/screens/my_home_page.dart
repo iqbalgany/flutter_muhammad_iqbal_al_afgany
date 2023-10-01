@@ -324,7 +324,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 String date = dateController.text.trim();
                                 int color = currentColor.value;
                                 String file = _fileUrl.first.toString();
-                                print('Warna : $color');
+
                                 if (selectedIndex == -1) {
                                   setState(
                                     () {
