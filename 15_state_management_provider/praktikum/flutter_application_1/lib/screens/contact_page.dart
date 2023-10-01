@@ -9,7 +9,10 @@ class ContactPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final contactProvider = Provider.of<ContactProvider>(context);
+    final contactProvider = Provider.of<ContactProvider>(
+      context,
+      listen: false,
+    );
     final formKey = GlobalKey<FormState>();
 
     return Scaffold(
@@ -50,27 +53,35 @@ class ContactPage extends StatelessWidget {
             ),
 
             /// NAME
-            Padding(
-              padding: const EdgeInsets.all(15),
-              child: TextFormField(
-                controller: contactProvider.nameController,
-                decoration: const InputDecoration(
-                  label: Text('Name'),
-                ),
-                validator: contactProvider.validateName,
-              ),
+            Consumer<ContactProvider>(
+              builder: (context, contactProvider, child) {
+                return Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: TextFormField(
+                    controller: contactProvider.nameController,
+                    decoration: const InputDecoration(
+                      label: Text('Name'),
+                    ),
+                    validator: contactProvider.validateName,
+                  ),
+                );
+              },
             ),
 
             /// PHONE NUMBER
-            Padding(
-              padding: const EdgeInsets.all(15),
-              child: TextFormField(
-                controller: contactProvider.phoneNumberController,
-                decoration: const InputDecoration(
-                  label: Text('Phone Number'),
-                ),
-                validator: contactProvider.validatePhoneNumber,
-              ),
+            Consumer<ContactProvider>(
+              builder: (context, contactProvider, child) {
+                return Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: TextFormField(
+                    controller: contactProvider.phoneNumberController,
+                    decoration: const InputDecoration(
+                      label: Text('Phone Number'),
+                    ),
+                    validator: contactProvider.validatePhoneNumber,
+                  ),
+                );
+              },
             ),
 
             /// SUBMIT BUTTON
@@ -89,37 +100,41 @@ class ContactPage extends StatelessWidget {
 
             /// LIST CONTACT
             Expanded(
-              child: ListView.builder(
-                itemCount: contactList.length,
-                itemBuilder: (context, index) {
-                  final Contact contact = contactList[index];
-                  return ListTile(
-                    leading: CircleAvatar(
-                      child: Text(
-                        contact.name[0].toUpperCase(),
-                      ),
-                    ),
-                    title: Text(contact.name),
-                    subtitle: Text(contact.phoneNumber),
-                    trailing: SizedBox(
-                      width: 100,
-                      child: Row(
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              contactProvider.editContact(index);
-                            },
-                            icon: const Icon(Icons.edit),
+              child: Consumer<ContactProvider>(
+                builder: (context, contactProvider, child) {
+                  return ListView.builder(
+                    itemCount: contactList.length,
+                    itemBuilder: (context, index) {
+                      final Contact contact = contactList[index];
+                      return ListTile(
+                        leading: CircleAvatar(
+                          child: Text(
+                            contact.name[0].toUpperCase(),
                           ),
-                          IconButton(
-                            onPressed: () {
-                              contactProvider.deleteContact(index);
-                            },
-                            icon: const Icon(Icons.delete),
+                        ),
+                        title: Text(contact.name),
+                        subtitle: Text(contact.phoneNumber),
+                        trailing: SizedBox(
+                          width: 100,
+                          child: Row(
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  contactProvider.editContact(index);
+                                },
+                                icon: const Icon(Icons.edit),
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  contactProvider.deleteContact(index);
+                                },
+                                icon: const Icon(Icons.delete),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
+                        ),
+                      );
+                    },
                   );
                 },
               ),
