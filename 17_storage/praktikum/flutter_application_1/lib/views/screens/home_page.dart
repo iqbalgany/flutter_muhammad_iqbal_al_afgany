@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/views/screens/contact_page.dart';
+import 'package:flutter_application_1/views/screens/sign_in_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
@@ -39,7 +39,9 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.all(20),
               child: Text(
                 'Selamat Datang',
-                style: Theme.of(context).textTheme.headlineMedium,
+                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                      color: Colors.black,
+                    ),
               ),
             ),
             Padding(
@@ -58,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const LoginPage(),
+                      builder: (context) => const SignInPage(),
                     ),
                   );
                 },
