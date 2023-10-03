@@ -17,10 +17,10 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Poppins',
       ),
       routes: {
-        '/home-page': (context) => HomePage(),
-        '/login-page': (context) => LoginPage(),
+        '/home-page': (context) => const HomePage(),
+        '/login-page': (context) => const LoginPage(),
       },
-      home: LoginPage(),
+      home: const LoginPage(),
     );
   }
 }

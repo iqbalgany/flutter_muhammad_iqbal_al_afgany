@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => HomePage(),
+            builder: (context) => const HomePage(),
           ),
           (route) => false);
     }
@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        title: const Text('Login'),
         centerTitle: true,
       ),
       body: ListView(
@@ -126,12 +126,12 @@ class _LoginPageState extends State<LoginPage> {
                           Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => HomePage(),
+                                builder: (context) => const HomePage(),
                               ),
                               (route) => false);
                         }
                       },
-                      child: Text('Login'),
+                      child: const Text('Login'),
                     ),
                   ),
                 ],
