@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/bloc/contact_bloc.dart';
 import 'package:flutter_application_1/models/contact_model.dart';
 
-import 'package:flutter_application_1/providers/contact_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ContactPage extends StatelessWidget {
   const ContactPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final contactProvider = Provider.of<ContactProvider>(
-      context,
-      listen: false,
-    );
+    final contactBloc = context.read<ContactBloc>();
 
     return Scaffold(
       appBar: AppBar(
@@ -20,7 +17,7 @@ class ContactPage extends StatelessWidget {
         centerTitle: true,
       ),
       body: Form(
-        key: contactProvider.formKey,
+        key: contactBloc.formKey,
         child: Column(
           children: [
             /// Phone Icon
@@ -52,32 +49,32 @@ class ContactPage extends StatelessWidget {
             ),
 
             /// NAME
-            Consumer<ContactProvider>(
-              builder: (context, contactProvider, child) {
+            BlocBuilder<ContactBloc, ContactState>(
+              builder: (context, state) {
                 return Padding(
                   padding: const EdgeInsets.all(15),
                   child: TextFormField(
-                    controller: contactProvider.nameController,
+                    controller: contactBloc.nameController,
                     decoration: const InputDecoration(
                       label: Text('Name'),
                     ),
-                    validator: contactProvider.validateName,
+                    validator: contactBloc.validateName,
                   ),
                 );
               },
             ),
 
             /// PHONE NUMBER
-            Consumer<ContactProvider>(
-              builder: (context, contactProvider, child) {
+            BlocBuilder<ContactBloc, ContactState>(
+              builder: (context, state) {
                 return Padding(
                   padding: const EdgeInsets.all(15),
                   child: TextFormField(
-                    controller: contactProvider.phoneNumberController,
+                    controller: contactBloc.phoneNumberController,
                     decoration: const InputDecoration(
                       label: Text('Phone Number'),
                     ),
-                    validator: contactProvider.validatePhoneNumber,
+                    validator: contactBloc.validatePhoneNumber,
                   ),
                 );
               },
@@ -86,57 +83,64 @@ class ContactPage extends StatelessWidget {
             /// SUBMIT BUTTON
             ElevatedButton(
               onPressed: () {
-                if (contactProvider.formKey.currentState!.validate()) {
-                  if (contactProvider.selectedIndex == -1) {
-                    contactProvider.addContact();
-                  } else {
-                    contactProvider.updateContact();
-                  }
-                }
+                contactBloc.add(AddContactEvent());
               },
               child: const Text('Submit'),
             ),
 
             /// LIST CONTACT
-            Expanded(
-              child: Consumer<ContactProvider>(
-                builder: (context, contactProvider, child) {
-                  return ListView.builder(
-                    itemCount: contactList.length,
-                    itemBuilder: (context, index) {
-                      final ContactModel contact = contactList[index];
-                      return ListTile(
-                        leading: CircleAvatar(
-                          child: Text(
-                            contact.name[0].toUpperCase(),
-                          ),
-                        ),
-                        title: Text(contact.name),
-                        subtitle: Text(contact.phoneNumber),
-                        trailing: SizedBox(
-                          width: 100,
-                          child: Row(
-                            children: [
-                              IconButton(
-                                onPressed: () {
-                                  contactProvider.editContact(index);
-                                },
-                                icon: const Icon(Icons.edit),
+            BlocBuilder<ContactBloc, ContactState>(
+              builder: (context, state) {
+                if (state is Contacts) {
+                  if (state.contacts.isEmpty) {
+                    return const Center(
+                      child: SizedBox(),
+                    );
+                  } else {
+                    return Expanded(
+                      child: ListView.builder(
+                        itemCount: state.contacts.length,
+                        itemBuilder: (context, index) {
+                          final ContactModel contact = state.contacts[index];
+                          return ListTile(
+                            leading: CircleAvatar(
+                              child: Text(
+                                contact.name[0].toUpperCase(),
                               ),
-                              IconButton(
-                                onPressed: () {
-                                  contactProvider.deleteContact(index);
-                                },
-                                icon: const Icon(Icons.delete),
+                            ),
+                            title: Text(contact.name),
+                            subtitle: Text(contact.phoneNumber),
+                            trailing: SizedBox(
+                              width: 100,
+                              child: Row(
+                                children: [
+                                  IconButton(
+                                    onPressed: () {
+                                      contactBloc.add(EditContactEvent(
+                                          contact: contact, index: index));
+                                    },
+                                    icon: const Icon(Icons.edit),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      contactBloc.add(
+                                        DeleteContactEvent(index: index),
+                                      );
+                                    },
+                                    icon: const Icon(Icons.delete),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                },
-              ),
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  }
+                } else {
+                  return const SizedBox.shrink();
+                }
+              },
             ),
           ],
         ),

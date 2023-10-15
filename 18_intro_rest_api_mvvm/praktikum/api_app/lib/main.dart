@@ -1,19 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/views/screens/contact_page.dart';
+import 'package:flutter_application_1/providers/contact_view_model.dart';
+import 'package:flutter_application_1/views/screens/home_page.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_application_1/providers/contact_provider.dart';
 
 void main() {
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => ContactProvider(),
-        ),
-      ],
-      child: const MyApp(),
-    ),
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -21,13 +12,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorSchemeSeed: Colors.blue,
-        fontFamily: 'Lato',
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => ContactViewModel(),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorSchemeSeed: Colors.blue,
+          fontFamily: 'Lato',
+        ),
+        home: const HomePage(),
       ),
-      home: const ContactPage(),
     );
   }
 }

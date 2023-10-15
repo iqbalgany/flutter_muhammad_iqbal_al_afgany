@@ -7,11 +7,7 @@ abstract class ContactEvent {
   List<Object> get props => [];
 }
 
-class AddContactEvent extends ContactEvent {
-  final ContactModel contact;
-
-  const AddContactEvent({required this.contact});
-}
+class AddContactEvent extends ContactEvent {}
 
 class DeleteContactEvent extends ContactEvent {
   final int index;
@@ -20,11 +16,11 @@ class DeleteContactEvent extends ContactEvent {
 }
 
 class EditContactEvent extends ContactEvent {
-  final String name;
-  final String phoneNumber;
+  final int index;
+  final ContactModel contact;
 
   const EditContactEvent({
-    required this.name,
-    required this.phoneNumber,
+    required this.contact,
+    required this.index,
   });
 }
