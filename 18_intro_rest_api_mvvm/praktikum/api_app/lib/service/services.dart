@@ -5,33 +5,17 @@ class ApiService {
 
   Future<Response> createContact() async {
     try {
-      final Response response =
-          await _dio.post("https://reqres.in/api/users", data: {
-        'name': 'Muhammad Iqbal Al Afgany',
-        'phoneNumber': '08123456789',
-      });
+      final Response response = await _dio.post(
+        "https://reqres.in/api/users",
+        data: {
+          'name': 'Muhammad Iqbal Al Afgany',
+          'phoneNumber': '08123456789',
+        },
+      );
 
       return response;
     } catch (e) {
       throw Exception('Post error $e');
-    }
-  }
-
-  Future userData() async {
-    try {
-      final Response response =
-          await _dio.put("https://jsonplaceholder.typicode.com/posts/1", data: {
-        'userId': 1,
-        'id': 1,
-        'title':
-            'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
-        'body':
-            'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto'
-      });
-
-      return response;
-    } catch (e) {
-      throw Exception('Gagal melakukan permintaan PUT: $e');
     }
   }
 
@@ -46,6 +30,22 @@ class ApiService {
       }
     } catch (e) {
       throw Exception('Gagal mengambil data kontak: $e');
+    }
+  }
+
+  Future userData() async {
+    try {
+      final Response response =
+          await _dio.put("https://jsonplaceholder.typicode.com/posts/1", data: {
+        'userId': 1,
+        'id': 1,
+        'title': 'foo',
+        'body': 'bar',
+      });
+
+      return response;
+    } catch (e) {
+      throw Exception('Gagal melakukan permintaan PUT: $e');
     }
   }
 

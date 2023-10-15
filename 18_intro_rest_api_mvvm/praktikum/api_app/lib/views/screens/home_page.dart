@@ -37,18 +37,18 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () async {
                     await contactViewModel.fetchContact();
                   },
-                  child: const Text('Ambil Data Kontak'),
+                  child: const Text('GET Request'),
                 );
               },
             ),
             const SizedBox(height: 20),
             Consumer<ContactViewModel>(
-              builder: (context, myViewModel, child) {
+              builder: (context, contactViewModel, child) {
                 return ElevatedButton(
                   onPressed: () async {
-                    await myViewModel.putData();
+                    await contactViewModel.putData();
                   },
-                  child: const Text('Kirim PUT Request'),
+                  child: const Text('PUT Request'),
                 );
               },
             ),
