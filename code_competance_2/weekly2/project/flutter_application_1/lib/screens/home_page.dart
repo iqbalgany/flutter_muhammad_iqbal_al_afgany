@@ -41,23 +41,17 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               leading: const Icon(Icons.call),
               title: const Text('Contact Us'),
-              onTap: () {
-                // Implementasikan aksi ketika item dipilih
-              },
+              onTap: () {},
             ),
             ListTile(
               leading: const Icon(Icons.info),
               title: const Text('About Us'),
-              onTap: () {
-                // Implementasikan aksi ketika item dipilih
-              },
+              onTap: () {},
             ),
             ListTile(
               leading: const Icon(Icons.login),
               title: const Text('Login'),
-              onTap: () {
-                // Implementasikan aksi ketika item dipilih
-              },
+              onTap: () {},
             ),
           ],
         ),
@@ -95,6 +89,7 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
+                SizedBox(height: 200),
 
                 /// ABOUT US SECTION
                 ListTile(
@@ -121,27 +116,70 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
                       child: Card(
                         elevation: 10,
-                        child: Container(
-                          width: 150,
-                          height: 150,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Container(
+                            width: 150,
+                            height: 150,
+                            child: Column(
+                              children: [
+                                Icon(Icons.laptop),
+                                Text('Immersive Program',
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium),
+                                Text(
+                                  'Program pelatihan coding bootcamp intensif bagi kamu yang pemula, baik dengan latar belakang IT, maupun Non-IT, untuk menjadi sorang Software Engineer profesional dalam waktu 9 minggu',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.copyWith(
+                                        fontSize: 9,
+                                      ),
+                                  textAlign: TextAlign.justify,
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
                       child: Card(
                         elevation: 10,
-                        child: Container(
-                          width: 150,
-                          height: 150,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Container(
+                            width: 150,
+                            height: 150,
+                            child: Column(
+                              children: [
+                                Icon(Icons.laptop),
+                                Text('Immersive Program',
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium),
+                                Text(
+                                  'Program pelatihan coding bootcamp intensif bagi kamu yang pemula, baik dengan latar belakang IT, maupun Non-IT, untuk menjadi sorang Software Engineer profesional dalam waktu 9 minggu',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.copyWith(
+                                        fontSize: 9,
+                                      ),
+                                  textAlign: TextAlign.justify,
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                     ),
                   ],
                 ),
+                SizedBox(height: 200),
 
                 /// CONTACT US SECTION
                 ListTile(
